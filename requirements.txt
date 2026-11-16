@@ -1,0 +1,18 @@
+# Everything needed to run the pipeline. On Colab TensorFlow is already installed, so skip it there.
+# Airflow is installed separately (see README) because its pinned dependencies clash with TensorFlow's.
+tensorflow>=2.15
+tf-keras>=2.15            # TFRS needs Keras 2; recsys sets TF_USE_LEGACY_KERAS=1 to select it
+tensorflow-recommenders>=0.7.3
+faiss-cpu>=1.8
+pyspark>=3.5,<4           # needs a Java runtime
+redis>=5.0
+tritonclient[http]>=2.40
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2
+pandas>=2.0
+pyarrow>=14
+numpy>=1.26
+scipy>=1.11
+pyyaml>=6
+matplotlib>=3.8

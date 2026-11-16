@@ -1,0 +1,7 @@
+{
+  "tensorflow_version": "2.21.0",
+  "models": [
+    "ranker_dcn",
+    "ranker_wide_deep"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "source_project_archive_sha256": "17fc80fdbd3b57ad167a8e9e58bb4c7b1b6ffe940abfce85ca8bf7dc9a08f404",
+  "colab_results_bundle_sha256": "898ae354ad01cf8f5408012d9b6f199b991b845b2262526e8e3aeedcc0ad90b5",
+  "colab_result_dataset": "ml-latest-small",
+  "colab_utc_time": "2026-11-16 08:30",
+  "result_source": "Uploaded results_bundle.zip; independently inspected for internal consistency",
+  "model_weights_included": false,
+  "live_triton_verified": false,
+  "airflow_scheduler_verified": false,
+  "real_ab_traffic": false
+}

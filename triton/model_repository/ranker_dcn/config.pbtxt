@@ -1,0 +1,4 @@
+name: "ranker_dcn"
+platform: "tensorflow_savedmodel"
+max_batch_size: 0
+instance_group [ { count: 1 kind: KIND_CPU } ]

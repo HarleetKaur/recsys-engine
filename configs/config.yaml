@@ -1,0 +1,63 @@
+# All settings live here. Point RECSYS_CONFIG at another file to use a different one,
+# or override single values on the command line: --set retrieval.epochs=10
+paths:
+  artifacts: artifacts
+  reports: reports
+  triton_repo: triton/model_repository
+
+data:
+  dataset: ml-25m            # ml-25m | ml-latest-small (small = quick dev runs)
+  raw_dir: data/raw
+  processed_dir: data/processed
+  engine: spark              # spark | pandas (same output tables; pandas needs no Java)
+  positive_threshold: 4.0    # rating >= threshold counts as a positive interaction
+  min_user_interactions: 20
+  max_users: 50000           # user subsample so a run fits on Colab; null = all ~162k users
+  val_quantile: 0.85         # time cutoffs on the global timeline:
+  test_quantile: 0.93        # train <= q0.85 < val <= q0.93 < test
+  seed: 42
+  spark_driver_memory: 8g
+
+retrieval:
+  embedding_dim: 64
+  hidden_units: 128
+  temperature: 0.05
+  epochs: 6
+  batch_size: 4096
+  learning_rate: 0.001
+  n_candidates: 200          # stage-1 output size
+  index_type: hnsw           # hnsw | flat | ivf
+  hnsw_m: 32
+  hnsw_ef_search: 128
+
+ranker:
+  embedding_dim: 32
+  hidden_units: [256, 128]
+  cross_layers: 2
+  epochs: 3
+  batch_size: 8192
+  learning_rate: 0.001
+  neg_per_pos: 2             # sampled unseen negatives per positive
+  variants: [dcn, wide_deep] # model A = dcn, model B = wide_deep (the A/B test arms)
+
+eval:
+  ks: [10, 20, 50]
+  max_eval_users: 5000
+  ann_check_users: 500
+
+serving:
+  backend: keras             # keras | triton
+  triton_url: localhost:8000
+  redis_host: localhost
+  redis_port: 6379
+  cache_ttl_seconds: 600
+  default_k: 10
+  min_history_for_personalization: 1
+  ab_split: 0.5              # share of users routed to arm B
+  ab_salt: exp-ranker-v1
+  log_dir: logs
+
+ab_replay:                   # simulated traffic, not real users (see README)
+  p_click_relevant: 0.6
+  p_click_irrelevant: 0.01
+  n_users: 5000

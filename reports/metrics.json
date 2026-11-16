@@ -1,0 +1,134 @@
+{
+  "n_eval_users": 17,
+  "n_candidates": 100,
+  "index_backend": "faiss-hnsw",
+  "popularity": {
+    "n_users": 17,
+    "recall@10": 0.01992871453119282,
+    "ndcg@10": 0.05260004606659687,
+    "hit_rate@10": 0.29411764705882354,
+    "recall@20": 0.05560912377442015,
+    "ndcg@20": 0.06472372085043265,
+    "hit_rate@20": 0.47058823529411764,
+    "recall@50": 0.10348881339110748,
+    "ndcg@50": 0.0848950986675898,
+    "hit_rate@50": 0.6470588235294118
+  },
+  "retrieval_ms_per_user": 0.4998714117685749,
+  "retrieval_only": {
+    "n_users": 17,
+    "recall@10": 0.046515598859045604,
+    "ndcg@10": 0.10725535094919801,
+    "hit_rate@10": 0.35294117647058826,
+    "recall@20": 0.08392251528558255,
+    "ndcg@20": 0.11777033584849095,
+    "hit_rate@20": 0.6470588235294118,
+    "recall@50": 0.1492951381732918,
+    "ndcg@50": 0.12818930408708107,
+    "hit_rate@50": 0.7647058823529411
+  },
+  "retrieval_candidate_recall": 0.24046535044984985,
+  "retrieval+dcn": {
+    "n_users": 17,
+    "recall@10": 0.05987495725374437,
+    "ndcg@10": 0.10291901556306972,
+    "hit_rate@10": 0.5294117647058824,
+    "recall@20": 0.10979891603195024,
+    "ndcg@20": 0.1247082069056665,
+    "hit_rate@20": 0.7058823529411765,
+    "recall@50": 0.16902114967735815,
+    "ndcg@50": 0.13490924906152577,
+    "hit_rate@50": 0.7647058823529411
+  },
+  "retrieval+wide_deep": {
+    "n_users": 17,
+    "recall@10": 0.060615332279272835,
+    "ndcg@10": 0.10177235134355536,
+    "hit_rate@10": 0.5882352941176471,
+    "recall@20": 0.09525646040404612,
+    "ndcg@20": 0.1143432513960588,
+    "hit_rate@20": 0.7058823529411765,
+    "recall@50": 0.16566714867464835,
+    "ndcg@50": 0.13311319977006433,
+    "hit_rate@50": 0.7647058823529411
+  },
+  "ann_recall_vs_exact": 0.9841176470588233,
+  "cold_start": {
+    "popularity": {
+      "n_users": 36,
+      "recall@10": 0.06589102566805344,
+      "ndcg@10": 0.24160185362637732,
+      "hit_rate@10": 0.6111111111111112,
+      "recall@20": 0.08504966247078244,
+      "ndcg@20": 0.20943195863870562,
+      "hit_rate@20": 0.6666666666666666,
+      "recall@50": 0.17943223948100775,
+      "ndcg@50": 0.2214774683578561,
+      "hit_rate@50": 0.9166666666666666
+    },
+    "content_based": {
+      "n_users": 36,
+      "recall@10": 0.026371636435811578,
+      "ndcg@10": 0.13239966010757337,
+      "hit_rate@10": 0.5277777777777778,
+      "recall@20": 0.04201465804943222,
+      "ndcg@20": 0.10995512799741534,
+      "hit_rate@20": 0.6666666666666666,
+      "recall@50": 0.059167801046218375,
+      "ndcg@50": 0.09083558282018349,
+      "hit_rate@50": 0.75
+    }
+  },
+  "dataset": "ml-latest-small",
+  "split_rows": {
+    "train": 85710,
+    "val": 8067,
+    "test": 7059
+  },
+  "settings": {
+    "data": {
+      "engine": "pandas",
+      "positive_threshold": 4.0,
+      "min_user_interactions": 20,
+      "max_users": 50000,
+      "val_quantile": 0.85,
+      "test_quantile": 0.93,
+      "seed": 42
+    },
+    "retrieval": {
+      "embedding_dim": 64,
+      "hidden_units": 128,
+      "temperature": 0.05,
+      "epochs": 15,
+      "batch_size": 512,
+      "learning_rate": 0.001,
+      "n_candidates": 100,
+      "index_type": "hnsw",
+      "hnsw_m": 32,
+      "hnsw_ef_search": 128
+    },
+    "ranker": {
+      "embedding_dim": 32,
+      "hidden_units": [
+        256,
+        128
+      ],
+      "cross_layers": 2,
+      "epochs": 4,
+      "batch_size": 8192,
+      "learning_rate": 0.001,
+      "neg_per_pos": 2,
+      "variants": [
+        "dcn",
+        "wide_deep"
+      ]
+    }
+  },
+  "environment": {
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "time_utc": "2026-11-16 08:30",
+    "tensorflow": "2.21.0",
+    "gpus": 1
+  }
+}

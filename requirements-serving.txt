@@ -1,0 +1,13 @@
+# For the API container only. The Keras/TFRS packages are not needed to load SavedModels.
+tensorflow-cpu>=2.15
+faiss-cpu>=1.8
+redis>=5.0
+tritonclient[http]>=2.40
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2
+pandas>=2.0
+pyarrow>=14
+numpy>=1.26
+scipy>=1.11
+pyyaml>=6

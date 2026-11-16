@@ -1,0 +1,34 @@
+{
+  "arms": {
+    "A": {
+      "requests": 7,
+      "impressions": 70,
+      "clicks": 0,
+      "ctr_impression": 0.0,
+      "ctr_request": 0.0
+    },
+    "B": {
+      "requests": 10,
+      "impressions": 100,
+      "clicks": 6,
+      "ctr_impression": 0.06,
+      "ctr_request": 0.5
+    }
+  },
+  "request_level_ztest": {
+    "p_A": 0.0,
+    "p_B": 0.5,
+    "diff_B_minus_A": 0.5,
+    "z": 2.2267315359812314,
+    "p_value": 0.02596522145513524
+  },
+  "diff_ci95": [
+    0.2,
+    0.8
+  ],
+  "models": {
+    "A": "dcn",
+    "B": "wide_deep"
+  },
+  "note": "Simulated traffic: clicks are sampled from test-period positives with a position-bias model."
+}
