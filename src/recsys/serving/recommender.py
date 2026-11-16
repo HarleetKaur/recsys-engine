@@ -39,7 +39,7 @@ class Recommender:
         ck = f"rec:{self.version}:{arm}:{user_id if known else 'cold'}:{k}:{sorted(seed_movie_ids or [])}:{sorted(liked_genres or [])}"
         hit = self.cache.get(ck)
         if hit is not None:
-            hit = dict(hit, source="cache", latency_ms=round((time.perf_counter() - t0) * 1e3, 3))
+            hit = dict(hit, user_id=user_id, source="cache", latency_ms=round((time.perf_counter() - t0) * 1e3, 3))
             hit["request_id"] = uuid.uuid4().hex
             return hit
 
