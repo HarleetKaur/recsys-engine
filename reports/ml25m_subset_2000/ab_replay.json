@@ -1,0 +1,34 @@
+{
+  "arms": {
+    "A": {
+      "requests": 18,
+      "impressions": 180,
+      "clicks": 3,
+      "ctr_impression": 0.016666666666666666,
+      "ctr_request": 0.16666666666666666
+    },
+    "B": {
+      "requests": 17,
+      "impressions": 170,
+      "clicks": 7,
+      "ctr_impression": 0.041176470588235294,
+      "ctr_request": 0.23529411764705882
+    }
+  },
+  "request_level_ztest": {
+    "p_A": 0.16666666666666666,
+    "p_B": 0.23529411764705882,
+    "diff_B_minus_A": 0.06862745098039216,
+    "z": 0.5072996561958923,
+    "p_value": 0.6119445797815589
+  },
+  "diff_ci95": [
+    -0.20923202614379083,
+    0.35302287581699304
+  ],
+  "models": {
+    "A": "dcn",
+    "B": "wide_deep"
+  },
+  "note": "Simulated traffic: clicks are sampled from test-period positives with a position-bias model."
+}

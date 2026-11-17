@@ -1,40 +1,27 @@
-# Submission handoff — 16 November 2026
+# Submission handoff — updated 16 November 2026
 
-## Included in this repository
+**GitHub:** https://github.com/HarleetKaur/recsys-engine
 
-- Reviewed implementation and 20 unit tests.
-- Google Colab small-mode notebook at `notebooks/colab_pipeline.ipynb`.
-- Real Colab-generated `reports/` JSON, NDCG plot and `docs/RESULTS.md` (source: uploaded `results_bundle.zip`).
-- API documentation, architecture diagram, measured-run verification notes and presentation deck.
-- Triton configuration/metadata **without model weights**; Airflow DAG source.
+## Files to submit or show
 
-## Important distinctions
+- Source, unit tests and reviewed Colab notebook in GitHub; local 21-test suite includes the cold-start cache-isolation regression test.
+- Preserved **small** verified run: `docs/RESULTS.md`, root `reports/`, `reports/ndcg.png`.
+- **MovieLens 25M-source, 2,000-user subset**: `docs/RESULTS_ML25M_SUBSET.md`, `reports/ml25m_subset_2000/`, `docs/RUN_COMPARISON.md`, `docs/RUN_PROVENANCE_ML25M_SUBSET.json`.
+- Updated presentation: `docs/Recommendation_Engine_10min.pptx` and `.pdf` plus `docs/PRESENTATION_OUTLINE.md`.
+- Architecture diagram (`docs/architecture.png`), API documentation (`docs/API.md`), and technical verification notes.
+- A separate 6-second screen recording of the in-process Colab `/recommend` demo was shown in QuickTime. **The recording is on the user's Mac, not in this archive.** If needed by your reviewer, share or add it separately.
 
-- **Small run completed.** `MODE=full` (MovieLens 25M) is still an optional, larger run; do not claim it was done.
-- **Working in-process API demo**, not a publicly hosted service. The output in Colab showed Redis caching and a cold-start response.
-- **Triton exported, not serving-tested.** Model binaries are not in the ZIP or GitHub repository, and cannot be regenerated without retraining or retaining the Colab model files.
-- **A/B replay is simulated**, not an online trial. No real-user CTR was measured.
-- A screenshot or screen recording of the successful Colab `/recommend` cell can document the demonstration.
-- `docs/PRESENTATION_OUTLINE.md` and `docs/Recommendation_Engine_10min.pptx` use only the completed small-run findings.
+## The exact evidence
 
-## GitHub submission
+- The 25M-source run used `data.max_users=2000`, **297,358** ratings across all splits, and 35 evaluated users. It **did not** train on all 25 million ratings.
+- Retrieval-only NDCG@20 **0.0959**, DCN **0.0891**, Wide & Deep **0.0878** on this subset. The deep rankers were **not** better on this metric.
+- A/B replay simulated clicks; it was **not** an online A/B test. Triton export metadata does **not** prove live Triton serving or contain model weights. Airflow source does **not** prove scheduling ran.
 
-Publish the **contents of the `recsys-engine` directory**, not the outer ZIP. `.gitignore` excludes raw data, model weights, temporary files and archives, while allowing reports and the NDCG image. Suggested terminal steps, from **inside the extracted `recsys-engine` folder** after creating an empty GitHub repository:
+## Remaining actions for the user
 
-```bash
-git init
-git add .
-git commit -m "Add verified small-mode recommender and results"
-git branch -M main
-git remote add origin YOUR_GITHUB_REPOSITORY_URL
-git push -u origin main
-```
+1. Merge the update ZIP from this chat into the existing local Git repository **without removing** the small-run report files.
+2. Review the docs and presentation, then commit/push the new report, archive and slide files.
+3. Provide the recording separately if required and write a short, truthful personal reflection if the submission requests it.
+4. Submit the GitHub URL (and any separately requested presentation/video) by the assigned deadline.
 
-Replace `YOUR_GITHUB_REPOSITORY_URL` with your actual repository URL; do not literally paste that placeholder. Authentication may require your GitHub login or token. Verify the repo online before submitting its URL.
-
-## Extra evidence / remaining tasks
-
-- Capture a short screen recording of the successful in-process Colab API cell (personalised recommendation, cached second request, cold start).
-- If your grading rubric requires it and runtime/resources permit, perform `MODE=full` on Colab and regenerate the result files; **replace** small-mode numbers in the presentation if you do that.
-- Do not claim live Triton, Airflow scheduling or real A/B traffic unless separately executed and logged.
-- Write the personal-reflection section yourself; prompts are provided, but no experiences were invented.
+**Optional extensions, not required to describe the executed subset run accurately:** train on all of MovieLens 25M if time/resources allow; validate Triton on compatible x86 Linux; run an Airflow scheduler; conduct a real-user experiment. Do not label any of these completed without direct evidence.

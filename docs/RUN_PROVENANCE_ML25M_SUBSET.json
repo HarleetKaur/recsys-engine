@@ -1,0 +1,26 @@
+{
+  "run_label": "ml25m_source_subset_2000_users",
+  "dataset_source": "ml-25m",
+  "max_users_configured": 2000,
+  "split_rows": {
+    "train": 252623,
+    "val": 23782,
+    "test": 20953
+  },
+  "n_eval_users": 35,
+  "model_training_epochs": {
+    "retrieval": 2,
+    "ranker": 1
+  },
+  "run_time_utc": "2026-11-16 15:05",
+  "tensorflow": "2.21.0",
+  "results_bundle_filename": "results_bundle (4).zip",
+  "results_bundle_sha256": "d6dc76bfeb8ca246d9926c57346e886d1079d6b7be6f620c33fe6cd7137b0bc3",
+  "model_weights_included": false,
+  "triton_model_exported": true,
+  "triton_live_inference_verified": false,
+  "airflow_scheduler_verified": false,
+  "ab_clicks_simulated": true,
+  "evaluation_not_full_dataset": true,
+  "run_reports_directory": "reports/ml25m_subset_2000/"
+}

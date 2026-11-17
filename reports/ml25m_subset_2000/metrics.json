@@ -1,0 +1,134 @@
+{
+  "n_eval_users": 35,
+  "n_candidates": 100,
+  "index_backend": "faiss-hnsw",
+  "popularity": {
+    "n_users": 35,
+    "recall@10": 0.02559242546530682,
+    "ndcg@10": 0.06495326511025741,
+    "hit_rate@10": 0.22857142857142856,
+    "recall@20": 0.06530078544001063,
+    "ndcg@20": 0.07387787014349434,
+    "hit_rate@20": 0.37142857142857144,
+    "recall@50": 0.11753228226115954,
+    "ndcg@50": 0.08483949977164382,
+    "hit_rate@50": 0.5142857142857142
+  },
+  "retrieval_ms_per_user": 0.6990294571421275,
+  "retrieval_only": {
+    "n_users": 35,
+    "recall@10": 0.07008566108572478,
+    "ndcg@10": 0.09240010322620609,
+    "hit_rate@10": 0.3142857142857143,
+    "recall@20": 0.08800562149007415,
+    "ndcg@20": 0.09590040359309347,
+    "hit_rate@20": 0.42857142857142855,
+    "recall@50": 0.17800205106309347,
+    "ndcg@50": 0.12699119470732015,
+    "hit_rate@50": 0.6
+  },
+  "retrieval_candidate_recall": 0.2483933055973326,
+  "retrieval+dcn": {
+    "n_users": 35,
+    "recall@10": 0.07308406618939306,
+    "ndcg@10": 0.086608024860522,
+    "hit_rate@10": 0.34285714285714286,
+    "recall@20": 0.10008371320847427,
+    "ndcg@20": 0.08905332939093566,
+    "hit_rate@20": 0.45714285714285713,
+    "recall@50": 0.16106454196074432,
+    "ndcg@50": 0.10746528336564994,
+    "hit_rate@50": 0.5714285714285714
+  },
+  "retrieval+wide_deep": {
+    "n_users": 35,
+    "recall@10": 0.07191626573587832,
+    "ndcg@10": 0.08203666611110967,
+    "hit_rate@10": 0.37142857142857144,
+    "recall@20": 0.10395902810073832,
+    "ndcg@20": 0.08782681191167932,
+    "hit_rate@20": 0.4857142857142857,
+    "recall@50": 0.1593124073696267,
+    "ndcg@50": 0.10241329805341996,
+    "hit_rate@50": 0.5714285714285714
+  },
+  "ann_recall_vs_exact": 0.9954285714285716,
+  "cold_start": {
+    "popularity": {
+      "n_users": 119,
+      "recall@10": 0.05444757115142153,
+      "ndcg@10": 0.2884944161875681,
+      "hit_rate@10": 0.7647058823529411,
+      "recall@20": 0.0879832267958876,
+      "ndcg@20": 0.2513035890138726,
+      "hit_rate@20": 0.8403361344537815,
+      "recall@50": 0.18794083458155963,
+      "ndcg@50": 0.2527517139608262,
+      "hit_rate@50": 0.907563025210084
+    },
+    "content_based": {
+      "n_users": 119,
+      "recall@10": 0.0230434366997616,
+      "ndcg@10": 0.14040037949806233,
+      "hit_rate@10": 0.5378151260504201,
+      "recall@20": 0.03339416494819885,
+      "ndcg@20": 0.11448834503426562,
+      "hit_rate@20": 0.6302521008403361,
+      "recall@50": 0.05450583735722762,
+      "ndcg@50": 0.0953380523543085,
+      "hit_rate@50": 0.7478991596638656
+    }
+  },
+  "dataset": "ml-25m",
+  "split_rows": {
+    "train": 252623,
+    "val": 23782,
+    "test": 20953
+  },
+  "settings": {
+    "data": {
+      "engine": "spark",
+      "positive_threshold": 4.0,
+      "min_user_interactions": 20,
+      "max_users": 2000,
+      "val_quantile": 0.85,
+      "test_quantile": 0.93,
+      "seed": 42
+    },
+    "retrieval": {
+      "embedding_dim": 64,
+      "hidden_units": 128,
+      "temperature": 0.05,
+      "epochs": 2,
+      "batch_size": 1024,
+      "learning_rate": 0.001,
+      "n_candidates": 100,
+      "index_type": "hnsw",
+      "hnsw_m": 32,
+      "hnsw_ef_search": 128
+    },
+    "ranker": {
+      "embedding_dim": 32,
+      "hidden_units": [
+        256,
+        128
+      ],
+      "cross_layers": 2,
+      "epochs": 1,
+      "batch_size": 2048,
+      "learning_rate": 0.001,
+      "neg_per_pos": 2,
+      "variants": [
+        "dcn",
+        "wide_deep"
+      ]
+    }
+  },
+  "environment": {
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "time_utc": "2026-11-16 15:05",
+    "tensorflow": "2.21.0",
+    "gpus": 1
+  }
+}
