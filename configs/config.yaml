@@ -6,7 +6,7 @@ paths:
   triton_repo: triton/model_repository
 
 data:
-  dataset: ml-25m            # ml-25m | ml-latest-small (small = quick dev runs)
+  dataset: ml-latest-small            # ml-25m | ml-latest-small (small = quick dev runs)
   raw_dir: data/raw
   processed_dir: data/processed
   engine: spark              # spark | pandas (same output tables; pandas needs no Java)
@@ -48,7 +48,7 @@ eval:
 serving:
   backend: keras             # keras | triton
   triton_url: localhost:8000
-  redis_host: localhost
+  redis_host: redis
   redis_port: 6379
   cache_ttl_seconds: 600
   default_k: 10

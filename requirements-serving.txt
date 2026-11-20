@@ -1,5 +1,5 @@
 # For the API container only. The Keras/TFRS packages are not needed to load SavedModels.
-tensorflow-cpu>=2.15
+tensorflow==2.21.0
 faiss-cpu>=1.8
 redis>=5.0
 tritonclient[http]>=2.40

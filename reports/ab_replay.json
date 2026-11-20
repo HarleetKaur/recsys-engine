@@ -3,28 +3,28 @@
     "A": {
       "requests": 7,
       "impressions": 70,
-      "clicks": 0,
-      "ctr_impression": 0.0,
-      "ctr_request": 0.0
+      "clicks": 1,
+      "ctr_impression": 0.014285714285714285,
+      "ctr_request": 0.14285714285714285
     },
     "B": {
       "requests": 10,
       "impressions": 100,
-      "clicks": 6,
-      "ctr_impression": 0.06,
+      "clicks": 5,
+      "ctr_impression": 0.05,
       "ctr_request": 0.5
     }
   },
   "request_level_ztest": {
-    "p_A": 0.0,
+    "p_A": 0.14285714285714285,
     "p_B": 0.5,
-    "diff_B_minus_A": 0.5,
-    "z": 2.2267315359812314,
-    "p_value": 0.02596522145513524
+    "diff_B_minus_A": 0.35714285714285715,
+    "z": 1.5165037256082,
+    "p_value": 0.12939202898204422
   },
   "diff_ci95": [
-    0.2,
-    0.8
+    -0.04357142857142852,
+    0.7
   ],
   "models": {
     "A": "dcn",
