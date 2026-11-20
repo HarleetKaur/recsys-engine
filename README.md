@@ -105,3 +105,16 @@ For the current handover and verification scope, see [Verification status](docs/
 ## Data
 
 MovieLens is provided by GroupLens for research use. The download script fetches it into `data/raw/`; it is not part of the repository.
+
+## Live integration verification — 20 November 2026
+
+FastAPI-to-Triton integration passed on 20 November 2026.
+Both DCN (arm A) and Wide & Deep (arm B) returned personalized
+recommendations through the live API. Triton inference counters
+increased by 200 for each model.
+
+The Redis cache and FAISS index were healthy.
+The A/B reporting endpoint returned observed API request statistics,
+but no genuine real-user experiment or click uplift was established.
+Airflow Docker configuration passed validation; scheduled retraining
+execution remains unverified.

@@ -1,0 +1,30 @@
+# Start via docker compose -f docker-compose.yml -f docker-compose.airflow.yml up -d --build airflow
+# Airflow uses its own ML venv in the image, separate from Airflow's Python.
+services:
+  airflow:
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
+    command: standalone
+    ports:
+      - "8081:8080"
+    environment:
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/runtime/airflow.db
+      AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/runtime/logs
+      RECSYS_HOME: /opt/recsys-engine
+      RECSYS_CONFIG: /opt/recsys-engine/configs/config.yaml
+      RECSYS_PIPELINE_PYTHON: /opt/recsys-venv/bin/python
+      RECSYS_REDIS_HOST: redis
+    volumes:
+      - ./:/opt/recsys-engine
+      - ./airflow/dags:/opt/airflow/dags:ro
+      - recsys_airflow_state:/opt/airflow/runtime
+    depends_on:
+      - redis
+    restart: unless-stopped
+volumes:
+  recsys_airflow_state:

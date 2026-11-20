@@ -34,3 +34,11 @@
 4. Submit the GitHub URL (and any separately requested presentation/video) by the assigned deadline.
 
 **Optional extensions, not required to describe the executed subset run accurately:** train on all of MovieLens 25M if time/resources allow; validate Triton on compatible x86 Linux; run an Airflow scheduler; conduct a real-user experiment. Do not label any of these completed without direct evidence.
+
+## Latest runtime results — 20 November 2026
+
+FastAPI-to-Triton inference was successfully verified for both
+ranking models. The API returned personalized recommendations,
+and each model's inference count increased by 200.
+A/B reporting works, but real-user A/B testing is not established.
+Airflow scheduler execution remains unverified.

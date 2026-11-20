@@ -1,0 +1,7 @@
+# Opt-in overlay: docker compose -f docker-compose.yml -f docker-compose.triton.yml up -d --build api
+# The default docker-compose.yml still uses the stable Keras backend.
+services:
+  api:
+    environment:
+      RECSYS_SERVING_BACKEND: triton
+      RECSYS_TRITON_URL: triton:8000

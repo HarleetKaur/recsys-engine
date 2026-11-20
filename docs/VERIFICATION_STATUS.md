@@ -46,3 +46,10 @@ This file distinguishes **observed Colab run outputs**, separate local source ch
 - NDCG/Recall on 17 and 35 offline evaluation users cannot establish production performance or generalization to the full dataset.
 - The known training feature-table issue is documented in the README; the test time window is held out for evaluation.
 - The two Colab runs use different samples and budgets: **do not interpret their differences as a causal model improvement**.
+
+## Latest integration verification — 20 November 2026
+
+Live FastAPI-to-Triton inference: PASSED for DCN and Wide & Deep.
+Inference count increases: 200 per model.
+A/B reporting endpoint: PASSED; real-user experimentation not verified.
+Airflow Docker configuration: PASSED; scheduled execution not verified.

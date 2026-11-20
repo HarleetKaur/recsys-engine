@@ -2,3 +2,6 @@ numpy
 pandas
 scipy
 pyyaml
+fastapi>=0.110
+httpx>=0.27
+pydantic>=2

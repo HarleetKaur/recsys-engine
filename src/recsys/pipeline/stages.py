@@ -203,10 +203,14 @@ def build_recommender(cfg):
     fs, user_emb, index, seen = _load_serving_parts(cfg)
     movies = _movies(cfg)
     a, b = cfg["ranker"]["variants"][:2]
-    if s["backend"] == "triton":
-        scorers = {"A": TritonScorer(s["triton_url"], f"ranker_{a}"), "B": TritonScorer(s["triton_url"], f"ranker_{b}")}
-    else:
+    backend = os.environ.get("RECSYS_SERVING_BACKEND", s["backend"]).strip().lower()
+    if backend == "triton":
+        url = os.environ.get("RECSYS_TRITON_URL", s["triton_url"])
+        scorers = {"A": TritonScorer(url, f"ranker_{a}"), "B": TritonScorer(url, f"ranker_{b}")}
+    elif backend == "keras":
         scorers = {"A": SavedModelScorer(_art(cfg, "rankers", a)), "B": SavedModelScorer(_art(cfg, "rankers", b))}
+    else:
+        raise ValueError(f"Unrecognized serving backend: {backend}")
     # The cache key includes the model version, so retrained models never serve old cached lists.
     # Hash file metadata from both stages, so replacing a ranker invalidates cached recommendations too.
     fingerprint = hashlib.sha256()
@@ -218,8 +222,10 @@ def build_recommender(cfg):
         st = os.stat(path)
         fingerprint.update(f"{path}:{st.st_size}:{st.st_mtime_ns}".encode())
     version = "m" + fingerprint.hexdigest()[:16]
-    return Recommender(fs, user_emb, index, seen, scorers, make_cache(s), ColdStart(fs), movies,
-                       cfg["retrieval"]["n_candidates"], s["cache_ttl_seconds"], s["ab_split"], s["ab_salt"], version)
+    rec = Recommender(fs, user_emb, index, seen, scorers, make_cache(s), ColdStart(fs), movies,
+                      cfg["retrieval"]["n_candidates"], s["cache_ttl_seconds"], s["ab_split"], s["ab_salt"], version)
+    rec.backend = backend
+    return rec
 
 
 def stage_ab_replay(cfg):
