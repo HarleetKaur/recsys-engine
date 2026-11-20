@@ -1,5 +1,14 @@
 # Two-stage movie recommender (MovieLens)
 
+## Current verified status — 20 November 2026
+
+- Latest small-dataset run: 17 evaluated users. NDCG@20 was 0.1154 for retrieval alone, 0.1174 for retrieval + DCN, and 0.1060 for retrieval + Wide & Deep.
+- The Docker FastAPI service was tested successfully using the local Keras SavedModel backend, FAISS retrieval, Redis caching, and cold-start recommendations.
+- Both Triton ranking models served successful direct inference requests. FastAPI-to-Triton integration was attempted but did not pass, so the working API uses Keras.
+- Airflow DAG structure was checked, but scheduled Airflow execution and live-user A/B testing were not verified.
+- Trained model weights are not stored in GitHub. They are preserved separately in the trained backup ZIP.
+
+
 A recommendation pipeline in the style of large streaming and retail sites: a fast first stage picks a few hundred candidate movies for a user, and a slower, more precise second stage re-orders them. This repository covers the whole path from raw ratings to a small web service, and includes the evaluation and A/B-test code.
 
 | Step | Tool |
@@ -14,7 +23,7 @@ A recommendation pipeline in the style of large streaming and retail sites: a fa
 | Weekly retraining | Airflow DAG |
 | Online experiment | Deterministic user split, CTR with z-test and bootstrap interval |
 
-**Verified Colab runs (16 November 2026):** Both the `ml-latest-small` run and a separate `ml-25m`-source **2,000-user subset** completed. The small run had 85,710/8,067/7,059 train/validation/test ratings and 17 evaluated users; its best NDCG@20 was 0.1247 for retrieval + DCN. The larger-source subset processed **297,358 ratings** (252,623/23,782/20,953), evaluated 35 users, and had best NDCG@20 of **0.0959 for retrieval alone**; the rankers did not outperform retrieval on this measure. Neither experiment constitutes training on all 25M ratings. The small-run in-process `/recommend` demo succeeded with Redis caching and cold start. **Live Triton inference, an Airflow scheduler and real-user A/B testing remain unverified.** See [small-run results](docs/RESULTS.md), [25M-subset results](docs/RESULTS_ML25M_SUBSET.md), [comparison](docs/RUN_COMPARISON.md), [verification](docs/VERIFICATION_STATUS.md) and [submission handoff](docs/SUBMISSION_HANDOFF.md).
+**Verified Colab runs (16 November 2026):** Both the `ml-latest-small` run and a separate `ml-25m`-source **2,000-user subset** completed. The small run had 85,710/8,067/7,059 train/validation/test ratings and 17 evaluated users; its best NDCG@20 was 0.1247 for retrieval + DCN. The larger-source subset processed **297,358 ratings** (252,623/23,782/20,953), evaluated 35 users, and had best NDCG@20 of **0.0959 for retrieval alone**; the rankers did not outperform retrieval on this measure. Neither experiment constitutes training on all 25M ratings. The small-run in-process `/recommend` demo succeeded with Redis caching and cold start. **Direct Triton inference was verified on 20 November. FastAPI-to-Triton integration, an Airflow scheduler and real-user A/B testing remain unverified.** See [small-run results](docs/RESULTS.md), [25M-subset results](docs/RESULTS_ML25M_SUBSET.md), [comparison](docs/RUN_COMPARISON.md), [verification](docs/VERIFICATION_STATUS.md) and [submission handoff](docs/SUBMISSION_HANDOFF.md).
 
 **Presentation:** [10-minute PowerPoint](docs/Recommendation_Engine_10min.pptx) and [speaker outline](docs/PRESENTATION_OUTLINE.md).
 
@@ -56,7 +65,7 @@ curl -X POST localhost:8080/recommend -H 'content-type: application/json' -d '{"
 
 By default the rankers run inside the API process. To use Triton, run `PYTHONPATH=src python -m recsys.cli export_triton`, start the stack with `docker compose up redis triton`, and set `serving.backend: triton` in the config. `python scripts/check_triton.py` compares Triton's scores with the local model.
 
-Triton's TensorFlow backend has to be the same TensorFlow version that exported the models, otherwise it may refuse to load them. `triton/model_repository/EXPORT_INFO.json` records the version used; pick the matching container tag with `TRITON_TAG`. The Triton images are built for x86 Linux, so on an Apple-silicon Mac use a cloud VM or another Linux machine for this part.
+Triton's TensorFlow backend has to be the same TensorFlow version that exported the models, otherwise it may refuse to load them. `triton/model_repository/EXPORT_INFO.json` records the version used; pick the matching container tag with `TRITON_TAG`. Triton was successfully tested on this Apple-silicon Mac using image 24.05-py3; compatibility may vary by image and platform.
 
 The endpoints are described in [docs/API.md](docs/API.md).
 

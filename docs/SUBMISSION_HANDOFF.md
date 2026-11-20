@@ -1,4 +1,13 @@
-# Submission handoff — updated 16 November 2026
+# Submission handoff — updated 20 November 2026
+
+## Final local verification — 20 November 2026
+
+- GitHub contains the project source, notebook, documentation, and committed results.
+- The working Docker API uses Keras ranking with FAISS and Redis; personalized and cold-start requests were tested.
+- Both Triton models passed direct inference tests, but API-to-Triton integration remains incomplete.
+- The separate trained-model backup ZIP passed its archive integrity test. Trained weights are not included in the GitHub repository.
+- Presentation and demo recording should be supplied separately if required by the submission instructions.
+
 
 **GitHub:** https://github.com/HarleetKaur/recsys-engine
 

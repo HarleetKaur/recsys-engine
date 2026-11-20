@@ -1,4 +1,13 @@
-# Verification status — updated 16 November 2026
+# Verification status — updated 20 November 2026
+
+## Additional verification — 20 November 2026
+
+- Direct Triton inference: both DCN and Wide & Deep models loaded, returned numerical scores, and passed two-item batch requests.
+- Local FastAPI serving: HTTP 200 for health, personalized recommendations, and cold-start requests.
+- Redis-backed caching: verified identical cached recommendations and a Redis cache hit.
+- FastAPI-to-Triton ranking: attempted but failed; the verified API configuration uses Keras.
+- Full Airflow scheduler execution and real-world A/B testing remain unverified.
+
 
 This file distinguishes **observed Colab run outputs**, separate local source checks, and infrastructure that remains unverified. The source for the 25M-subset numbers is the user's uploaded `results_bundle (4).zip`; all JSON values were cross-checked against its generated `docs/RESULTS.md` and `reports/metrics.json`.
 
@@ -28,7 +37,6 @@ This file distinguishes **observed Colab run outputs**, separate local source ch
 ## Still not verified or not supplied
 
 - **All 25 million MovieLens ratings:** the completed `ml-25m` run uses a 2,000-user sample and 297,358 total ratings, not the full corpus.
-- **Live Triton inference:** exported configurations were generated, but no Triton server was started, and GitHub does not contain large SavedModel weights.
 - **Running Airflow scheduler**, **publicly deployed web API**, or **real-user A/B testing**: not tested. The Airflow DAG and serving code are implementation components, not evidence of live infrastructure.
 - **Individual intern reflection:** should be supplied truthfully by the project owner.
 
